@@ -19,6 +19,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
+from agent.config_validator import ConfigValidator, ConfigValidationError
 from agent.data_fetcher import DataFetcher
 from agent.decision_engine import DecisionEngine
 from agent.logger import DecisionLogger
@@ -173,9 +174,15 @@ def main() -> None:
         # Print startup banner
         print_banner()
         
-        # Step 1: Load configuration
+        # Step 1: Load and validate configuration
         console.print("[dim]Loading configuration from config.yaml...[/dim]")
         config = load_config()
+        
+        # Validate config before proceeding
+        console.print("[dim]Validating configuration...[/dim]")
+        validator = ConfigValidator(config)
+        validator.validate()
+        ConfigValidator.validate_foundations_file()
         
         # Step 2: Initialize components
         logger = DecisionLogger()
@@ -215,6 +222,10 @@ def main() -> None:
         console.print()  # Spacer
         print_decision_result(foundation, confidence, reasoning, pitch)
         
+    except ConfigValidationError as e:
+        console.print(f"[red]Configuration Error:[/red]")
+        console.print(f"[yellow]{e}[/yellow]")
+        raise SystemExit(1)
     except FileNotFoundError as e:
         console.print(f"[red]Setup Error: {e}[/red]")
         console.print("[yellow]Make sure config.yaml and foundations/foundations_list.json exist.[/yellow]")

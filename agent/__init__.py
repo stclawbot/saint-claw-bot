@@ -11,5 +11,9 @@ from .logger import DecisionLogger
 from .data_fetcher import DataFetcher
 from .decision_engine import DecisionEngine
 from .pitcher import PitchGenerator
+from .config_validator import ConfigValidator, ConfigValidationError
 
-__all__ = ["DecisionLogger", "DataFetcher", "DecisionEngine", "PitchGenerator"]
+__all__ = [
+    "DecisionLogger", "DataFetcher", "DecisionEngine", 
+    "PitchGenerator", "ConfigValidator", "ConfigValidationError"
+]

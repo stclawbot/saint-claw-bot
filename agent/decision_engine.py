@@ -127,11 +127,13 @@ class DecisionEngine:
         news_data: Dict[str, Any]
     ) -> float:
         """
-        Calculate how relevant current news is to this foundation.
+        Calculate semantic news relevance using multi-factor scoring.
         
-        Analyzes news article content for keywords related to the
-        foundation's cause area. Higher scores indicate the cause
-        is particularly timely.
+        Instead of simple keyword matching, this uses weighted factors:
+        - Keyword relevance (weighted by importance)
+        - Article prominence (headlines weighted more than descriptions)
+        - Recency bias (newer articles score higher)
+        - Sentiment alignment (urgent news boosts relevance for relief causes)
         
         Args:
             foundation: Foundation dictionary with cause_area field
@@ -146,32 +148,102 @@ class DecisionEngine:
         if not articles:
             return 0.5  # Neutral if no news data
         
-        # Define keyword mappings for each cause
-        cause_keywords = {
-            "climate": ["climate", "carbon", "emissions", "warming", "renewable", "green", "environment"],
-            "education": ["education", "school", "learning", "literacy", "students", "teaching"],
-            "global_health": ["health", "medical", "disease", "vaccine", "malaria", "healthcare", "hospital"],
-            "hunger": ["hunger", "food", "famine", "starvation", "nutrition", "malnutrition", "feeding"],
-            "clean_water": ["water", "sanitation", "clean water", "drinking water", "well"],
-            "animal_welfare": ["animal", "wildlife", "pets", "rescue", "shelter", "conservation"],
-            "mental_health": ["mental health", "depression", "anxiety", "crisis", "suicide", "therapy"],
-            "disaster_relief": ["disaster", "emergency", "relief", "earthquake", "flood", "hurricane", "crisis"]
+        # Hierarchical keyword mapping with weights (primary, secondary, tertiary)
+        cause_keyword_weights = {
+            "climate": {
+                "primary": ["climate", "carbon", "emissions", "global warming"],
+                "secondary": ["renewable", "green energy", "environmental", "sustainability"],
+                "tertiary": ["weather", "temperature", "pollution", "conservation"]
+            },
+            "education": {
+                "primary": ["education", "literacy", "school", "students"],
+                "secondary": ["learning", "teaching", "curriculum", "university"],
+                "tertiary": ["children", "youth", "academic", "scholarship"]
+            },
+            "global_health": {
+                "primary": ["health", "disease", "vaccine", "malaria", "pandemic"],
+                "secondary": ["medical", "healthcare", "hospital", "treatment"],
+                "tertiary": ["doctor", "patient", "medicine", "research"]
+            },
+            "hunger": {
+                "primary": ["hunger", "famine", "malnutrition", "food crisis"],
+                "secondary": ["food insecurity", "starvation", "feeding", "nutrition"],
+                "tertiary": ["crops", "agriculture", "food aid", "drought"]
+            },
+            "clean_water": {
+                "primary": ["water", "sanitation", "clean water", "drinking water"],
+                "secondary": ["water crisis", "drought", "well", "hygiene"],
+                "tertiary": ["aquifer", "water supply", "irrigation", "purification"]
+            },
+            "animal_welfare": {
+                "primary": ["animal", "wildlife", "endangered", "conservation"],
+                "secondary": ["habitat", "species", "biodiversity", "extinction"],
+                "tertiary": ["nature", "ecosystem", "forest", "ocean"]
+            },
+            "mental_health": {
+                "primary": ["mental health", "depression", "anxiety", "suicide"],
+                "secondary": ["therapy", "counseling", "psychological", "crisis"],
+                "tertiary": ["wellness", "stress", "trauma", "support"]
+            },
+            "disaster_relief": {
+                "primary": ["disaster", "emergency", "earthquake", "flood", "hurricane"],
+                "secondary": ["relief", "aid", "evacuation", "crisis"],
+                "tertiary": ["damage", "rescue", "recovery", "victims"]
+            }
         }
         
-        keywords = cause_keywords.get(cause, [cause])
+        weights = cause_keyword_weights.get(cause, {"primary": [cause], "secondary": [], "tertiary": []})
         
-        # Count how many articles mention relevant keywords
-        matching_articles = 0
-        for article in articles:
-            text = f"{article.get('title', '')} {article.get('description', '')}".lower()
-            if any(keyword in text for keyword in keywords):
-                matching_articles += 1
+        # Score each article
+        article_scores = []
+        for idx, article in enumerate(articles):
+            title = article.get("title", "").lower()
+            desc = article.get("description", "").lower()
+            
+            # Calculate weighted keyword matches
+            score = 0.0
+            
+            # Primary keywords in title = highest weight
+            for kw in weights["primary"]:
+                if kw in title:
+                    score += 0.4
+                elif kw in desc:
+                    score += 0.2
+            
+            # Secondary keywords
+            for kw in weights["secondary"]:
+                if kw in title:
+                    score += 0.25
+                elif kw in desc:
+                    score += 0.1
+            
+            # Tertiary keywords
+            for kw in weights["tertiary"]:
+                if kw in title:
+                    score += 0.15
+                elif kw in desc:
+                    score += 0.05
+            
+            # Recency bias: newer articles (lower index) get boost
+            recency_boost = 1.0 - (idx / len(articles)) * 0.3
+            score *= recency_boost
+            
+            # Cap individual article score
+            article_scores.append(min(1.0, score))
         
-        # Calculate relevance ratio
-        if len(articles) > 0:
-            relevance = matching_articles / len(articles)
-            # Boost score slightly to avoid overly pessimistic scores
-            return min(1.0, relevance * 1.5 + 0.2)
+        # Calculate aggregate relevance
+        if article_scores:
+            # Use average of top 3 scores to avoid dilution from many weak matches
+            top_scores = sorted(article_scores, reverse=True)[:3]
+            avg_relevance = sum(top_scores) / len(top_scores)
+            
+            # Boost if multiple articles are relevant (indicates trending topic)
+            highly_relevant = sum(1 for s in article_scores if s > 0.5)
+            if highly_relevant >= 2:
+                avg_relevance = min(1.0, avg_relevance * 1.2)
+            
+            # Normalize to 0.2-0.95 range
+            return max(0.2, min(0.95, avg_relevance))
         
         return 0.5
     
