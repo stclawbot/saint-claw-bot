@@ -1,0 +1,137 @@
+[
+  {
+    "id": "edf_climate",
+    "name": "Environmental Defense Fund",
+    "cause_area": "climate",
+    "website": "https://www.edf.org",
+    "impact_score": 9.2,
+    "description": "One of the world's leading environmental organizations, EDF creates transformational solutions to the most serious environmental problems by linking science, economics, law, and innovative private-sector partnerships.",
+    "founded_year": 1967
+  },
+  {
+    "id": "room_to_read",
+    "name": "Room to Read",
+    "cause_area": "education",
+    "website": "https://www.roomtoread.org",
+    "impact_score": 9.0,
+    "description": "Room to Read focuses on literacy and gender equality in education, working with local communities to develop literacy skills and a habit of reading among primary school children, and supporting girls to complete secondary school.",
+    "founded_year": 2000
+  },
+  {
+    "id": "givewell_direct",
+    "name": "GiveWell Top Charities Fund",
+    "cause_area": "global_health",
+    "website": "https://www.givewell.org",
+    "impact_score": 9.5,
+    "description": "GiveWell searches for charities that save or improve lives the most per dollar, conducting rigorous research to find outstanding giving opportunities and directing funds to the most cost-effective interventions.",
+    "founded_year": 2007
+  },
+  {
+    "id": "action_against_hunger",
+    "name": "Action Against Hunger",
+    "cause_area": "hunger",
+    "website": "https://www.actionagainsthunger.org",
+    "impact_score": 8.8,
+    "description": "A global humanitarian organization that takes decisive action against the causes and effects of hunger. They save the lives of malnourished children and ensure communities can access clean water, food, training, and healthcare.",
+    "founded_year": 1979
+  },
+  {
+    "id": "charity_water",
+    "name": "charity: water",
+    "cause_area": "clean_water",
+    "website": "https://www.charitywater.org",
+    "impact_score": 8.7,
+    "description": "charity: water is a non-profit organization bringing clean and safe drinking water to people in developing countries. 100% of public donations fund water projects, with private donors covering overhead.",
+    "founded_year": 2006
+  },
+  {
+    "id": "aspca",
+    "name": "ASPCA",
+    "cause_area": "animal_welfare",
+    "website": "https://www.aspca.org",
+    "impact_score": 8.5,
+    "description": "The American Society for the Prevention of Cruelty to Animals works to rescue animals from abuse, pass humane laws, and share resources with shelters nationwide. They provide direct care to thousands of animals each year.",
+    "founded_year": 1866
+  },
+  {
+    "id": "nami",
+    "name": "NAMI",
+    "cause_area": "mental_health",
+    "website": "https://www.nami.org",
+    "impact_score": 8.9,
+    "description": "The National Alliance on Mental Illness is the nation's largest grassroots mental health organization dedicated to building better lives for the millions of Americans affected by mental illness through education, advocacy, and support.",
+    "founded_year": 1979
+  },
+  {
+    "id": "red_cross",
+    "name": "American Red Cross",
+    "cause_area": "disaster_relief",
+    "website": "https://www.redcross.org",
+    "impact_score": 8.6,
+    "description": "The American Red Cross shelters, feeds, and provides emotional support to victims of disasters; supplies about 40% of the nation's blood; teaches skills that save lives; provides international humanitarian aid; and supports military members.",
+    "founded_year": 1881
+  },
+  {
+    "id": "nature_conservancy",
+    "name": "The Nature Conservancy",
+    "cause_area": "climate",
+    "website": "https://www.nature.org",
+    "impact_score": 8.8,
+    "description": "The Nature Conservancy is a global environmental nonprofit working to create a world where people and nature can thrive. They use a science-based approach to conservation, protecting lands and waters globally.",
+    "founded_year": 1951
+  },
+  {
+    "id": "doctors_without_borders",
+    "name": "Doctors Without Borders",
+    "cause_area": "global_health",
+    "website": "https://www.doctorswithoutborders.org",
+    "impact_score": 9.3,
+    "description": "Médecins Sans Frontières provides medical assistance to people affected by conflict, epidemics, disasters, or exclusion from healthcare. They are guided by medical ethics and the principles of impartiality, independence, and neutrality.",
+    "founded_year": 1971
+  },
+  {
+    "id": "unicef",
+    "name": "UNICEF USA",
+    "cause_area": "education",
+    "website": "https://www.unicefusa.org",
+    "impact_score": 8.4,
+    "description": "UNICEF works in over 190 countries to save children's lives, defend their rights, and help them fulfill their potential. Their programs focus on health, nutrition, education, emergency relief, and child protection.",
+    "founded_year": 1947
+  },
+  {
+    "id": "feeding_america",
+    "name": "Feeding America",
+    "cause_area": "hunger",
+    "website": "https://www.feedingamerica.org",
+    "impact_score": 8.9,
+    "description": "Feeding America is the largest hunger-relief organization in the United States. Through a network of 200 food banks and 60,000 food pantries and meal programs, they provide meals to more than 40 million people annually.",
+    "founded_year": 1979
+  },
+  {
+    "id": "water_org",
+    "name": "Water.org",
+    "cause_area": "clean_water",
+    "website": "https://water.org",
+    "impact_score": 9.1,
+    "description": "Water.org empowers people in need with access to safe water and sanitation through affordable financing, such as small loans. Founded by Gary White and Matt Damon, they have reached more than 52 million people across 11 countries.",
+    "founded_year": 2009
+  },
+  {
+    "id": "best_friends",
+    "name": "Best Friends Animal Society",
+    "cause_area": "animal_welfare",
+    "website": "https://bestfriends.org",
+    "impact_score": 8.6,
+    "description": "Best Friends Animal Society runs the largest no-kill sanctuary for companion animals in the nation and leads a national campaign to make every shelter in America no-kill by 2025, saving countless lives through adoption and spay/neuter programs.",
+    "founded_year": 1984
+  },
+  {
+    "id": "crisis_text_line",
+    "name": "Crisis Text Line",
+    "cause_area": "mental_health",
+    "website": "https://www.crisistextline.org",
+    "impact_score": 9.0,
+    "description": "Crisis Text Line provides free, 24/7, confidential crisis support via text message. Their trained crisis counselors help people move from a hot moment to a cool calm, addressing issues from anxiety and depression to suicidal thoughts.",
+    "founded_year": 2013
+  }
+]

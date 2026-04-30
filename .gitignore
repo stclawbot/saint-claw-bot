@@ -1,0 +1,31 @@
+# Saint Claw Bot
+# Environment and build artifacts
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Local data (keep structure, ignore content)
+data/decision_log.json
+!data/.gitkeep
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/

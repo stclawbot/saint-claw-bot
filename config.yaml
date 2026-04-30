@@ -1,0 +1,28 @@
+# Saint Claw Bot Configuration
+# Edit these values to customize the bot's decision-making preferences
+
+# Preferred causes the bot should prioritize when making donation decisions
+# Available options: climate, education, global_health, hunger, clean_water, animal_welfare, mental_health, disaster_relief
+preferred_causes:
+  - climate
+  - education
+  - global_health
+
+# How often the bot should make donation decisions
+decision_frequency: daily  # Options: daily, weekly
+
+# Maximum number of times to skip a foundation if it was recently chosen
+# Prevents the same foundation from being selected repeatedly
+max_repeat_skip: 3
+
+# Tone for the generated pitch
+# auto: Automatically selects based on news context (urgent for disasters/crises, hopeful otherwise)
+# urgent: Always use urgent, call-to-action tone
+# hopeful: Always use optimistic, forward-looking tone
+pitch_tone: auto
+
+# API Keys (use environment variables for security, see .env.example)
+api_keys:
+  news_api: ${NEWS_API_KEY}      # NewsAPI key for current events
+  charity_api: ${CHARITY_API_KEY}  # Charity Navigator or GiveWell API key
+  openai_api: ${OPENAI_API_KEY}    # OpenAI API key for pitch generation
