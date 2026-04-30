@@ -92,7 +92,7 @@ class DataFetcher:
         """
         api_key = os.getenv("NEWS_API_KEY")
         
-        if not api_key or api_key == "your_newsapi_key_here"::
+        if not api_key or api_key == "your_newsapi_key_here":
             self._print_demo_warning("NewsAPI")
             return self._get_mock_news(keywords)
         
